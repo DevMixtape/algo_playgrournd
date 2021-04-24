@@ -1,6 +1,7 @@
 module MergeSort
   class << self
     def sort(values)
+      return values if values.empty?
       groups = break_into_groups_of_at_least_two(values)
       groups = sort_each_group(groups)
       merge_groups(groups)
@@ -34,7 +35,6 @@ module MergeSort
     end
 
     def merge_groups(groups)
-      return groups.flatten if groups.size == 1
       results = []
 
       while groups.any? do
@@ -45,8 +45,8 @@ module MergeSort
         end
       end
 
-      if results.all? { |r| r.is_a?(Integer) }
-        return results
+      if results.size == 1
+        return results.first
       else
         merge_groups(results)
       end
